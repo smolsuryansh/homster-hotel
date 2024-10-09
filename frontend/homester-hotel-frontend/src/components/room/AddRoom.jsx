@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { addRoom } from "../utils/ApiFunctions"
+import { addRoom } from '../utils/ApiFunctions'
 import { RoomTypeSelector } from '../common/RoomTypeSelector'
 
 const AddRoom = () => {
@@ -19,13 +19,13 @@ const AddRoom = () => {
     const name = e.target.name;
     let value = e.target.value;
 
-    if(name === "roomPrice") {
-      if(!isNaN(value)) {
-        value.parseInt(value)
-      } else {
-        value = ""
-      }
-    }
+    // if(name === "roomPrice") {
+    //   if(!isNaN(value)) {
+    //     value.parseInt(value)
+    //   } else {
+    //     value = ""
+    //   }
+    // }
 
     setNewRoom({...newRoom, [name]: value})
   }
@@ -55,6 +55,10 @@ const AddRoom = () => {
     } catch (error) {
       setErrorMessage(error.message)
     }
+    setTimeout(() => {
+      setSuccessMessage("")
+      setErrorMessage("")
+    }, 3000)
   }
 
   return (
@@ -64,6 +68,15 @@ const AddRoom = () => {
 
           <div className="col-md-8 col-lg-6">
             <h2 className="mt-5 mb-2">Add a new room</h2>
+
+            {successMessage && (
+              <div className="alert alert-success fade show"> {successMessage} </div>
+            )}
+
+            {errorMessage && (
+              <div className="alert alert-danger fade show"> {errorMessage} </div>
+            )}
+
 
             <form onSubmit={handleSubmit}>
 
